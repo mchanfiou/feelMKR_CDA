@@ -1,5 +1,5 @@
 {
-  "name": "my-app",
+  "name": "feelmkr",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -12,19 +12,20 @@
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
     "dotenv": "^16.4.7",
-    "next": "15.1.7",
+    "next": "^15.1.7",
+    "npm": "^11.1.0",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.9",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.2.0"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "15.1.7",
-    "typescript": "^5"
+    "@eslint/eslintrc": "^3.3.0",
+    "@types/node": "^22",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "eslint": "^9.21.0",
+    "eslint-config-next": "^15.1.7",
+    "typescript": "^5.7.3"
   }
 }

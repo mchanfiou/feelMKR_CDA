@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <>
       <Navbar color="light" light expand="lg" className="p-3">
-        <a href="#" className="navbar-brand">FeelMKR</a> {/* Remplacer Navbar.Brand par une balise a */}
+      <Image src="/FeelMKR.png" alt="Logo" width={50} height={50} className="img-fluid" />
         <Nav className="ms-auto">
           <Button outline color="secondary" className="me-2">Se connecter</Button>
           <Button color="dark">Essayer gratuitement</Button>
@@ -21,7 +21,7 @@ export default function Home() {
       </Container>
       
       <Container className="text-center">
-        <Image src="/img_vitrine.png" alt="Clap cinéma et objectifs" width={800} height={400} className="img-fluid" />
+        <Image src="/img.jpg" alt="Clap cinéma et objectifs" width={800} height={400} className="img-fluid w-100 mx-auto" />
       </Container>
       
       <footer className="text-center mt-5 py-4 bg-light">

@@ -1,9 +1,9 @@
-'use client';
+'use client'; 
 
 import { Container, Button, Navbar, Nav } from 'reactstrap'; // Importation de reactstrap
 import Image from 'next/image';
 
-export default function Home() {
+export default function Page() {
   return (
     <>
       <Navbar color="light" light expand="lg" className="p-3">

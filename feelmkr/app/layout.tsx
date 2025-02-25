@@ -11,7 +11,6 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   title: "FeelMKR",
-  icons: "/FeelMKR.png",
 };
 
 export default function RootLayout({

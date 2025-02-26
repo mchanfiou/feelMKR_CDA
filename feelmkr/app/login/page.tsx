@@ -2,13 +2,13 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Container, Button, Form, FormGroup, Label, Input, Alert, Navbar, Nav } from 'reactstrap';
+import { Container, Button, Form, FormGroup, Label, Input, Alert, Navbar } from 'reactstrap';
 import Image from 'next/image';
 
-export default function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState(null);
+export default function LoginPage() {
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -25,8 +25,12 @@ export default function Login() {
       localStorage.setItem('accessToken', data.access);
       localStorage.setItem('refreshToken', data.refresh);
       router.push('/dashboard');
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('Une erreur inconnue est survenue');
+      }
     }
   };
 
@@ -52,7 +56,7 @@ export default function Login() {
             <Button color="dark" block>Se connecter</Button>
           </Form>
           <div className="text-center mt-3">
-            <a href="#">J'ai oublié mon mot de passe</a> | <a href="/register">S'inscrire</a>
+            <a href="#">J&apos;ai oublié mon mot de passe</a> | <a href="/register">S&apos;inscrire</a>
           </div>
         </div>
       </Container>

@@ -19,17 +19,20 @@ jobs:
         with:
           node-version: 22
           cache: 'npm'
+          cache-dependency-path: feelmkr/package-lock.json
 
       - name: Install dependencies
-        run: |
-          npm install
+        working-directory: feelmkr
+        run: npm install
 
       - name: Lint & Type Check
+        working-directory: feelmkr
         run: |
           npm run lint
           npm run type-check
 
       - name: Run Jest tests
+        working-directory: feelmkr
         run: |
           npm test -- --coverage
 
@@ -46,6 +49,7 @@ jobs:
         run: npm install -g vercel
 
       - name: Deploy to Vercel
+        working-directory: feelmkr
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: |

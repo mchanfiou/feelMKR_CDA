@@ -15,7 +15,7 @@ export default function Page() {
       </Navbar>
       
       <Container className="text-center my-5">
-        <h1 className="fw-bold">Capturez l’instant, <br /> racontez votre histoire</h1>
+        <h1 className="fw-bold">Capturez l’instant présent, <br /> racontez votre histoire</h1>
         <p>FeelMKR, votre vitrine professionnelle pour sublimer vos réalisations vidéo</p>
         <Button color="dark" size="lg">Essayer gratuitement</Button>
       </Container>

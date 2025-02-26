@@ -9,7 +9,7 @@ jest.mock('next/navigation', () => ({
 }));
 
 // Mock de fetch pour l'authentification
-global.fetch = jest.fn((url, options) =>
+global.fetch = jest.fn((url) =>
   Promise.resolve({
     ok: url.includes('/token/'),
     json: () =>

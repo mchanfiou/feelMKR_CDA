@@ -37,7 +37,7 @@ export default function LoginPage() {
   return (
     <>
       <Navbar color="light" light expand="lg" className="p-3">
-        <Image src="/FeelMKR.png" alt="Logo" width={50} height={50} className="img-fluid" />
+        <Image src="/FeelMKR.png" alt="Logo" width={65} height={65} className="img-fluid" />
       </Navbar>
       
       <Container className="d-flex justify-content-center align-items-center" style={{ height: '80vh' }}>

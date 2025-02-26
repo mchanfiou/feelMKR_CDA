@@ -4,26 +4,32 @@ import { Container, Button, Navbar, Nav } from 'reactstrap'; // Importation de r
 import Image from 'next/image';
 
 
-export default function Page() {
+export default function HomePage() {
   const router = useRouter();
   return (
     <>
       <Navbar color="light" light expand="lg" className="p-3">
-      <Image src="/FeelMKR.png" alt="Logo" width={50} height={50} className="img-fluid" />
+      <Image src="/FeelMKR.png" alt="Logo" width={65} height={65} className="img-fluid" />
         <Nav className="ms-auto">
           <Button outline color="secondary" className="me-2" onClick={() => router.push('/login')}>Se connecter</Button>
-          <Button color="dark">Essayer gratuitement</Button>
+          <Button color="dark" onClick={() => router.push('/register')}>Essayer gratuitement</Button>
         </Nav>
       </Navbar>
       
-      <Container className="text-center my-5">
+      <Container className="text-center my-5 h-100">
         <h1 className="fw-bold">Capturez l’instant présent, <br /> racontez votre histoire</h1>
         <p>FeelMKR, votre vitrine professionnelle pour sublimer vos réalisations vidéo</p>
-        <Button color="dark" size="lg">Essayer gratuitement</Button>
+        <Button color="dark" size="lg" onClick={() => router.push('/register')}>Essayer gratuitement</Button>
       </Container>
       
-      <Container className="text-center">
-        <Image src="/img.jpg" alt="Clap cinéma et objectifs" width={800} height={400} className="img-fluid w-100 mx-auto" />
+      <Container className="w-100 m-0" style={{ height: '1200px', position: 'relative' }}>
+        <Image 
+          src="/img.jpg" 
+          alt="Clap cinéma et objectifs" 
+          fill
+          className="img-fluid w-100 h-25"
+          style={{ objectFit: 'cover' }}
+        />
       </Container>
       
       <footer className="text-center mt-5 py-4 bg-light">

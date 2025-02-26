@@ -58,7 +58,7 @@ export default function RegisterPage() {
           {error && <Alert color="danger">{error}</Alert>}
           <Form onSubmit={handleRegister}>
             <FormGroup>
-              <Label for="companyName">Nom d'entreprise</Label>
+              <Label for="companyName">Nom d&apos;entreprise</Label>
               <Input type="text" id="companyName" value={companyName} onChange={(e) => setCompanyName(e.target.value)} required />
             </FormGroup>
             <FormGroup>
@@ -76,13 +76,13 @@ export default function RegisterPage() {
             <FormGroup check>
               <Label check>
                 <Input type="checkbox" checked={termsAccepted} onChange={(e) => setTermsAccepted(e.target.checked)} required />{' '}
-                J'accepte les CGU
+                J&apos;accepte les CGU
               </Label>
             </FormGroup>
-            <Button color="dark" block>S'inscrire</Button>
+            <Button color="dark" block>S&apos;inscrire</Button>
           </Form>
           <div className="text-center mt-3">
-            <a href="#">J'ai oublié mon mot de passe</a> | <a href="/login">Se connecter</a>
+          <a href="#">J&apos;ai oublié mon mot de passe</a> | <a href="/login">Se connecter</a>
           </div>
         </div>
       </Container>

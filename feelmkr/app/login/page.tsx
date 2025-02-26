@@ -24,7 +24,7 @@ export default function LoginPage() {
       if (!response.ok) throw new Error(data.detail || 'Échec de la connexion');
       localStorage.setItem('accessToken', data.access);
       localStorage.setItem('refreshToken', data.refresh);
-      router.push('/dashboard');
+      router.push('/');
     } catch (err: unknown) {
       if (err instanceof Error) {
         setError(err.message);

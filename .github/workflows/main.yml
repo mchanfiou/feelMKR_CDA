@@ -1,4 +1,4 @@
-name: Backend CI/CD
+name: Frontend CI/CD
 
 on:
   push:
@@ -8,86 +8,45 @@ on:
 
 jobs:
   lint-and-test:
-    name: Lint & Test Backend
+    name: Lint & Test Frontend
     runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres:15
-        env:
-          POSTGRES_DB: feelmkr
-          POSTGRES_USER: mouss
-          POSTGRES_PASSWORD: root
-        ports:
-          - 5432:5432
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
-          python-version: '3.13.2'
-          cache: 'pip'
-
-      - name: Cache pip dependencies
-        uses: actions/cache@v3
-        with:
-            path: ~/.cache/pip
-            key: setup-python-${{ runner.os }}-python-${{ matrix.python-version }}-pip-${{ hashFiles('requirements.txt') }}
-            restore-keys: setup-python-${{ runner.os }}-python-${{ matrix.python-version }}-pip-
+          node-version: 22
+          cache: 'npm'
 
       - name: Install dependencies
         run: |
-          pip install -r requirements.txt
-      - name: Format with black
-        run: |
-          black .
-      
-      - name: Organize imports with isort
-        run: |
-          isort .
+          npm install
 
-      - name: Lint & Format Check
+      - name: Lint & Type Check
         run: |
-          flake8 .
+          npm run lint
+          npm run type-check
 
-      - name: Run pytest
+      - name: Run Jest tests
         run: |
-          pytest --cov
+          npm test -- --coverage
 
-  build-and-push:
-    name: Build and Push Docker Image
+  deploy:
+    name: Deploy to Vercel
     needs: lint-and-test
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Log in to GitHub Container Registry
-        uses: docker/login-action@v1
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.DEPLOY_TOKEN }}
+      - name: Install Vercel CLI
+        run: npm install -g vercel
 
-      - name: Build Docker image
+      - name: Deploy to Vercel
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: |
-          docker build -t ghcr.io/mchanfiou/feelmkr_cda_backend:latest .
-
-      - name: Push Docker image
-        run: |
-          docker push ghcr.io/mchanfiou/feelmkr_cda_backend:latest
-
-  deploy:
-    name: Deploy to Render
-    needs: build-and-push
-    runs-on: ubuntu-latest
-    steps:
-      - name: Trigger Render Deploy
-        run: |
-            curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }} \
-            -H "Accept: application/json" \
-            -H "Content-Type: application/json" \
-            -d '{
-                "image": "ghcr.io/mchanfiou/feelmkr_cda_backend:latest"
-            }'
+          vercel --prod --token=$VERCEL_TOKEN

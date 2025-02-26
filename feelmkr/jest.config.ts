@@ -1,5 +1,6 @@
 import nextJest from 'next/jest';
 import type { Config } from 'jest';
+import 'ts-node/register';
 
 const createJestConfig = nextJest({
   dir: './',

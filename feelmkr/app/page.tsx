@@ -1,15 +1,17 @@
 'use client'; 
-
+import { useRouter } from 'next/navigation';
 import { Container, Button, Navbar, Nav } from 'reactstrap'; // Importation de reactstrap
 import Image from 'next/image';
 
+
 export default function Page() {
+  const router = useRouter();
   return (
     <>
       <Navbar color="light" light expand="lg" className="p-3">
       <Image src="/FeelMKR.png" alt="Logo" width={50} height={50} className="img-fluid" />
         <Nav className="ms-auto">
-          <Button outline color="secondary" className="me-2">Se connecter</Button>
+          <Button outline color="secondary" className="me-2" onClick={() => router.push('/login')}>Se connecter</Button>
           <Button color="dark">Essayer gratuitement</Button>
         </Nav>
       </Navbar>

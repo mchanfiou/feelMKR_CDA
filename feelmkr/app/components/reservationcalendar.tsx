@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
+import { Calendar, dateFnsLocalizer} from 'react-big-calendar';
 import { format, parse, startOfWeek, getDay } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { Container, Modal, ModalHeader, ModalBody, ModalFooter, Button } from "reactstrap";
 import axios from "axios";
+import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -41,17 +42,26 @@ const localizer = dateFnsLocalizer({
   locales,
 });
 
+interface Reservation {
+  date: string;
+}
+
+interface CalendarEvent {
+  start: Date;
+  end: Date;
+}
+
 const ReservationCalendar = () => {
-  const [events, setEvents] = useState<any[]>([]);
+  const [events, setEvents] = useState<CalendarEvent[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
   useEffect(() => {
     const loadReservations = async () => {
-      const data = await fetchReservations();
-      const formattedEvents = data.map((r: { date: string }) => ({
+      const data: Reservation[] = await fetchReservations();
+      const formattedEvents = data.map((r) => ({
         start: new Date(r.date),
-        end: new Date(r.date + 1), // Ajouter une heure à l'événement
+        end: new Date(r.date + 1),
       }));
       setEvents(formattedEvents);
     };
@@ -63,14 +73,15 @@ const ReservationCalendar = () => {
     setModalOpen(true);
   };
 
-  const handleCloseModal = () => {
-    setModalOpen(false);
-  };
-
   // Fonction pour colorier les événements
-  const eventPropGetter = (event: any) => {
-    const backgroundColor = '#ffcccc'; // Couleur de fond pour les dates réservées
-    return { style: { backgroundColor } };
+  const eventPropGetter = (event: CalendarEvent) => {
+    const isReserved = events.some(e => e.start && event.start && e.start.toDateString() === event.start.toDateString());
+    
+    if (isReserved) {
+      return { style: { backgroundColor: '#ffcccc' } }; // Couleur de fond pour les réservations
+    }
+    
+    return {};
   };
 
   return (
@@ -90,19 +101,18 @@ const ReservationCalendar = () => {
           today: "Aujourd'hui",
           event: 'Événement',
         }}
-        selectable // Permet la sélection des slots
-        onSelectSlot={handleSelectSlot} // Gérer la sélection d'un slot
-        eventPropGetter={eventPropGetter} // Appliquer des styles aux événements
+        selectable
+        onSelectSlot={handleSelectSlot}
+        eventPropGetter={eventPropGetter}
       />
 
-      {/* Modal pour afficher la date sélectionnée */}
-      <Modal isOpen={modalOpen} toggle={handleCloseModal}>
-        <ModalHeader toggle={handleCloseModal}>Date Sélectionnée</ModalHeader>
+      <Modal isOpen={modalOpen} toggle={() => setModalOpen(false)}>
+        <ModalHeader toggle={() => setModalOpen(false)}>Date Sélectionnée</ModalHeader>
         <ModalBody>
           {selectedDate ? `Vous avez sélectionné : ${format(selectedDate, 'dd/MM/yyyy')}` : "Aucune date sélectionnée."}
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={handleCloseModal}>Fermer</Button>
+          <Button color="primary" onClick={() => setModalOpen(false)}>Fermer</Button>
         </ModalFooter>
       </Modal>
     </Container>

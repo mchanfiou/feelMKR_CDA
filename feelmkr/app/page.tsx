@@ -8,6 +8,7 @@ export default function HomePage() {
   const router = useRouter();
   return (
     <>
+    <div className="d-flex flex-column min-vh-100">
       <Navbar color="light" light expand="lg" className="p-3">
       <Image src="/FeelMKR.png" alt="Logo" width={65} height={65} className="img-fluid" />
         <Nav className="ms-auto">
@@ -16,23 +17,23 @@ export default function HomePage() {
         </Nav>
       </Navbar>
       
-      <Container className="text-center my-5 h-100">
-        <h1 className="fw-bold">Capturez l’instant présent, <br /> racontez votre histoire</h1>
+      <Container className="text-center my-5 " style={{ height: '50vh', paddingTop: '12.5vh', position: 'relative' }}>
+        <h1 className="fw-bold d-flex justify-content-center">Capturez l’instant présent, <br /> racontez votre histoire</h1>
         <p>FeelMKR, votre vitrine professionnelle pour sublimer vos réalisations vidéo</p>
-        <Button color="dark" size="lg" onClick={() => router.push('/register')}>Essayer gratuitement</Button>
+        <Button color="dark" size="lg" onClick={() => router.push('/reservation')}>Essayer gratuitement</Button>
       </Container>
       
-      <Container className="w-100 m-0" style={{ height: '1200px', position: 'relative' }}>
+      <Container fluid style={{ height: '50vh', position: 'relative' }}>
         <Image 
           src="/img.jpg" 
           alt="Clap cinéma et objectifs" 
           fill
-          className="img-fluid w-100 h-25"
+          className="img-fluid "
           style={{ objectFit: 'cover' }}
         />
       </Container>
       
-      <footer className="text-center mt-5 py-4 bg-light">
+      <footer className="text-center mt-auto py-4 bg-light">
         <Container>
           <div className="d-flex justify-content-center gap-3">
             <a href="#">X</a>
@@ -44,6 +45,7 @@ export default function HomePage() {
           </div>
         </Container>
       </footer>
+      </div>
     </>
   );
 }

@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import { Container, Button, Form, FormGroup, Label, Input, Alert, Navbar } from 'reactstrap';
 import Image from 'next/image';
 
+const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
 export default function LoginPage() {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -15,7 +17,7 @@ export default function LoginPage() {
     e.preventDefault();
     setError(null);
     try {
-      const response = await fetch('http://localhost:8000/token/', {
+      const response = await fetch(`${API_URL}/token`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })

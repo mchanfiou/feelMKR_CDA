@@ -17,7 +17,7 @@ describe('LoginPage Integration Test', () => {
     (useRouter as jest.Mock).mockReturnValue({ push: mockPush });
 
     // Mock de la réponse fetch
-    (global.fetch as jest.Mock).mockImplementation((url) =>
+    (global.fetch as jest.Mock).mockImplementation(() =>
       Promise.resolve({
         ok: true,
         json: () =>
